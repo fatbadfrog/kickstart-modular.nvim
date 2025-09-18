@@ -72,3 +72,13 @@ vim.o.scrolloff = 10
 vim.o.confirm = true
 
 -- vim: ts=2 sts=2 sw=2 et
+if vim.g.neovide then
+  -- 禁用光标平滑移动动画
+  vim.g.neovide_cursor_animation_length = 0
+
+  -- 禁用滚动平滑动画
+  vim.g.neovide_scroll_animation_length = 0
+  -- 禁用光标粒子特效 (可选 'railgun', 'torpedo', 'pixiedust' 等)
+  -- 设置为空字符串 "" 即可禁用
+  vim.g.neovide_cursor_vfx_mode = ''
+end
