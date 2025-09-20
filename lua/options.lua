@@ -81,4 +81,20 @@ if vim.g.neovide then
   -- 禁用光标粒子特效 (可选 'railgun', 'torpedo', 'pixiedust' 等)
   -- 设置为空字符串 "" 即可禁用
   vim.g.neovide_cursor_vfx_mode = ''
+  vim.o.guifont = 'Iosevka Nerd Font:h13'
 end
+
+vim.api.nvim_create_user_command('Term', function(opts)
+  local split_cmd = opts.fargs[1]
+  if not split_cmd or not vim.tbl_contains({ 'vsplit', 'split' }, split_cmd) then
+    split_cmd = 'split'
+  end
+  local file_dir = vim.fn.expand '%:p:h'
+  local cwd = vim.fn.getcwd()
+  local target_dir = (vim.fn.isdirectory(file_dir) == 1) and file_dir or cwd
+  vim.cmd(split_cmd)
+  vim.cmd('lcd' .. vim.fn.escape(target_dir, ' '))
+  vim.cmd 'terminal'
+end, {
+  nargs = '?',
+})
